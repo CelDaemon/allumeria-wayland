@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <_NativeLibDir>$(MSBuildProjectDirectory)\native-lib\</_NativeLibDir>
+        <_NativeLibCMakeDir>$(_NativeLibDir)contrib\</_NativeLibCMakeDir>
+        <_NativeLibBuildDir>$(_NativeLibDir)build\</_NativeLibBuildDir>
+        <_NativeLibGlue>$(_NativeLibDir)glue\soloud.cs</_NativeLibGlue>
+        <_NativeLibName>libsoloud.so</_NativeLibName>
+        <_NativeLib>$(_NativeLibBuildDir)$(_NativeLibName)</_NativeLib>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="$(_NativeLibGlue)"/>
+        <None Include="$(_NativeLib)">
+            <Link>$(_NativeLibName)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <Target Name="_BuildNatives" BeforeTargets="BeforeBuild" Outputs="$(_NativeLib);$(_NativeLibGlue)">
+        <Exec Command="cmake -DSOLOUD_C_API=ON -DSOLOUD_GENERATE_GLUE=ON -DSOLOUD_STATIC=OFF -DSOLOUD_DYNAMIC=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -B $(_NativeLibBuildDir)" WorkingDirectory="$(_NativeLibCMakeDir)"/>
+        <Exec Command="cmake --build $(_NativeLibBuildDir)" WorkingDirectory="$(_NativeLibCMakeDir)"/>
+    </Target>
+
+</Project>
