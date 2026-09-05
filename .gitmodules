@@ -1,3 +1,6 @@
 [submodule "Soloud/native-lib"]
 	path = Soloud/native-lib
 	url = https://github.com/CelDaemon/soloud.git
+[submodule "Steamworks"]
+	path = Steamworks
+	url = https://github.com/CelDaemon/Facepunch.Steamworks.git
