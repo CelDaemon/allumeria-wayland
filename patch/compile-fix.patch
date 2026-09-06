@@ -1,0 +1,86 @@
+diff -urB Allumeria.orig/Allumeria/ChunkManagement/Chunk.cs Allumeria/Allumeria/ChunkManagement/Chunk.cs
+--- Allumeria.orig/Allumeria/ChunkManagement/Chunk.cs	2026-09-06 01:41:43.067140385 +0200
++++ Allumeria/Allumeria/ChunkManagement/Chunk.cs	2026-09-06 02:05:57.344945487 +0200
+@@ -720,12 +720,11 @@
+ 
+ 	public static (int x, int y, int z) IndexToCoords(int index)
+ 	{
+-		return new(int, int, int)
+-		{
+-			Item1 = index % 32,
+-			Item2 = index / 32 % 32,
+-			Item3 = index / 1024
+-		};
++		return (
++			index % 32,
++			index / 32 % 32,
++			index / 1024
++		);
+ 	}
+ 
+ 	public static int CoordsToIndex(int x, int y, int z)
+diff -urB Allumeria.orig/Allumeria/Comfort/TownManager.cs Allumeria/Allumeria/Comfort/TownManager.cs
+--- Allumeria.orig/Allumeria/Comfort/TownManager.cs	2026-09-06 01:41:43.065726038 +0200
++++ Allumeria/Allumeria/Comfort/TownManager.cs	2026-09-06 02:17:32.198903433 +0200
+@@ -103,7 +103,7 @@
+ 		}
+ 	}
+ 
+-	public TownManager()
++	public TownManager() : base()
+ 	{
+ 		int num = 4;
+ 		List<NPCData> list = new List<NPCData>(num);
+@@ -115,6 +115,5 @@
+ 		span[3] = NPCData.builder;
+ 		remainingNPCS = list;
+ 		homes = new Dictionary<Vector3i, TownHome>();
+-		base._002Ector();
+ 	}
+ }
+diff -urB Allumeria.orig/Allumeria/Game.cs Allumeria/Allumeria/Game.cs
+--- Allumeria.orig/Allumeria/Game.cs	2026-09-06 01:41:43.072031328 +0200
++++ Allumeria/Allumeria/Game.cs	2026-09-06 02:17:04.151902577 +0200
+@@ -359,7 +359,7 @@
+ 				Logger.Init("In big picture mode - Switching to fullscreen");
+ 				base.WindowState = WindowState.Fullscreen;
+ 			}
+-			if (SteamUtils.IsRunningOnSteamDeck)
++			if (SteamUtils.IsRunningOnSteamHardware == SteamHardwareType.SteamDeck)
+ 			{
+ 				base.ClientSize = new Vector2i(1280, 720);
+ 			}
+diff -urB Allumeria.orig/Allumeria/Input/InputChannel.cs Allumeria/Allumeria/Input/InputChannel.cs
+--- Allumeria.orig/Allumeria/Input/InputChannel.cs	2026-09-06 01:41:43.060618988 +0200
++++ Allumeria/Allumeria/Input/InputChannel.cs	2026-09-06 02:25:21.597917758 +0200
+@@ -162,8 +162,7 @@
+ 					if (steamInputGlyphUpdateClock == 0)
+ 					{
+ 						steamInputGlyphUpdateClock = 600;
+-						InputActionOrigin[] digitalActionOrigins = SteamInput.GetDigitalActionOrigins(current, name);
+-						string pngActionGlyphForOrigin = SteamInput.GetPngActionGlyphForOrigin(digitalActionOrigins[0], GlyphSize.Medium);
++                        string pngActionGlyphForOrigin = SteamInput.GetPngActionGlyph(current, name, GlyphSize.Medium);
+ 						if (pngActionGlyphForOrigin != steamInputGlyphDir && pngActionGlyphForOrigin != null && pngActionGlyphForOrigin != "" && pngActionGlyphForOrigin.Length > 0 && File.Exists(pngActionGlyphForOrigin))
+ 						{
+ 							steamInputGlyphDir = pngActionGlyphForOrigin;
+diff -urB Allumeria.orig/Allumeria/Input/InputManager.cs Allumeria/Allumeria/Input/InputManager.cs
+--- Allumeria.orig/Allumeria/Input/InputManager.cs	2026-09-06 01:41:43.060618988 +0200
++++ Allumeria/Allumeria/Input/InputManager.cs	2026-09-06 02:21:38.017057482 +0200
+@@ -199,7 +199,7 @@
+ 		{
+ 			steamInputActive = true;
+ 			Logger.Warn("Trying to set up steam input");
+-			SteamInput.Init();
++			// SteamInput.Init();
+ 			SteamInput.RunFrame();
+ 			SteamUtils.OnGamepadTextInputDismissed += OnInputDismissed;
+ 		}
+@@ -226,7 +226,7 @@
+ 		if (steamInputActive)
+ 		{
+ 			SteamInput.RunFrame();
+-			int controllerCount = SteamInput.GetControllerCount();
++
+ 			using (IEnumerator<Controller> enumerator = SteamInput.Controllers.GetEnumerator())
+ 			{
+ 				if (enumerator.MoveNext())
