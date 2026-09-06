@@ -3,7 +3,6 @@
         <TargetFramework>net10.0</TargetFramework>
         <OutputType>Exe</OutputType>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
         <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
         <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
@@ -13,7 +12,7 @@
         <ProjectReference Include="..\FastNoiseLite\FastNoiseLite.csproj" />
         <ProjectReference Include="..\Soloud\Soloud.csproj" />
         <ProjectReference Include="..\Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Posix.csproj" />
-        <None Include="..\libsteam_api.so;..\steam_appid.txt">
+        <None Include="..\libsteam_api.so;..\steam_appid.txt;.\res\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
 

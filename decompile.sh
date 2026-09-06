@@ -20,8 +20,23 @@ fi
 
 dotnet tool run ilspycmd -- --nested-directories -p -o "$base_dir/Allumeria" "$allumeria_dll"
 
+echo "Finished decompiling"
+
 cp "$patch_dir/Allumeria.csproj" "$decomp_dir/Allumeria.csproj"
+
+echo "Replaced Project"
 
 cd "$decomp_dir"
 
-patch -p1 "$patch_dir/"*.patch
+echo "Checked out decomp dir, applying patches"
+
+for file in "$patch_dir"/*.patch
+do
+    patch -p1 < "$file"
+done
+
+echo "Applies patches"
+
+cp -r "$game_dir/res" "$decomp_dir"
+
+echo "Copied resources"
