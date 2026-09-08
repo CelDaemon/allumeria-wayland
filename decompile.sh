@@ -38,7 +38,7 @@ cp -r "$game_dir/res" "$decomp_dir"
 
 echo "Copied resources"
 
-for file in "$extra_dir"/*
+for file in "$extra_dir"/{*,.*}
 do
     cp "$file" "$decomp_dir"
 done
