@@ -1,0 +1,25 @@
+From 84e55c0f756a56d8b729ce7e7785a3524310f915 Mon Sep 17 00:00:00 2001
+From: CelDaemon <celdaemon@voidgroup.net>
+Date: Tue, 8 Sep 2026 12:50:19 +0200
+Subject: [PATCH 3/4] Make Soloud use SDL2
+
+---
+ Allumeria/Audio/AudioPlayer.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Allumeria/Audio/AudioPlayer.cs b/Allumeria/Audio/AudioPlayer.cs
+index 797f4a9..518f8e0 100644
+--- a/Allumeria/Audio/AudioPlayer.cs
++++ b/Allumeria/Audio/AudioPlayer.cs
+@@ -67,7 +67,7 @@ public class AudioPlayer
+ 	public static void GetDevices()
+ 	{
+ 		soloud = new Soloud();
+-		soloud.init(3u, 14u);
++		soloud.init(Soloud.CLIP_ROUNDOFF | Soloud.ENABLE_VISUALIZATION, Soloud.SDL2);
+ 		soloud.play(bus_main);
+ 		handle_music = bus_main.play(bus_music);
+ 		handle_ui = bus_main.play(bus_ui);
+-- 
+2.55.0
+

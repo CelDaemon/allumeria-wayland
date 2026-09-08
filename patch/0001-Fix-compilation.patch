@@ -1,7 +1,21 @@
-diff -urB Allumeria.orig/Allumeria/ChunkManagement/Chunk.cs Allumeria/Allumeria/ChunkManagement/Chunk.cs
---- Allumeria.orig/Allumeria/ChunkManagement/Chunk.cs	2026-09-06 01:41:43.067140385 +0200
-+++ Allumeria/Allumeria/ChunkManagement/Chunk.cs	2026-09-06 02:05:57.344945487 +0200
-@@ -720,12 +720,11 @@
+From 44368a459da3ae1953129e663d8d1adf103d0d76 Mon Sep 17 00:00:00 2001
+From: CelDaemon <celdaemon@voidgroup.net>
+Date: Mon, 7 Sep 2026 20:55:41 +0200
+Subject: [PATCH 1/4] Fix compilation
+
+---
+ Allumeria/ChunkManagement/Chunk.cs | 11 +++++------
+ Allumeria/Comfort/TownManager.cs   |  3 +--
+ Allumeria/Game.cs                  |  2 +-
+ Allumeria/Input/InputChannel.cs    |  3 +--
+ Allumeria/Input/InputManager.cs    |  4 ++--
+ 5 files changed, 10 insertions(+), 13 deletions(-)
+
+diff --git a/Allumeria/ChunkManagement/Chunk.cs b/Allumeria/ChunkManagement/Chunk.cs
+index 2fd49cf..dcb0f07 100644
+--- a/Allumeria/ChunkManagement/Chunk.cs
++++ b/Allumeria/ChunkManagement/Chunk.cs
+@@ -720,12 +720,11 @@ public class Chunk
  
  	public static (int x, int y, int z) IndexToCoords(int index)
  	{
@@ -19,10 +33,11 @@ diff -urB Allumeria.orig/Allumeria/ChunkManagement/Chunk.cs Allumeria/Allumeria/
  	}
  
  	public static int CoordsToIndex(int x, int y, int z)
-diff -urB Allumeria.orig/Allumeria/Comfort/TownManager.cs Allumeria/Allumeria/Comfort/TownManager.cs
---- Allumeria.orig/Allumeria/Comfort/TownManager.cs	2026-09-06 01:41:43.065726038 +0200
-+++ Allumeria/Allumeria/Comfort/TownManager.cs	2026-09-06 02:17:32.198903433 +0200
-@@ -103,7 +103,7 @@
+diff --git a/Allumeria/Comfort/TownManager.cs b/Allumeria/Comfort/TownManager.cs
+index 9246683..f8d9e18 100644
+--- a/Allumeria/Comfort/TownManager.cs
++++ b/Allumeria/Comfort/TownManager.cs
+@@ -103,7 +103,7 @@ public class TownManager
  		}
  	}
  
@@ -31,17 +46,18 @@ diff -urB Allumeria.orig/Allumeria/Comfort/TownManager.cs Allumeria/Allumeria/Co
  	{
  		int num = 4;
  		List<NPCData> list = new List<NPCData>(num);
-@@ -115,6 +115,5 @@
+@@ -115,6 +115,5 @@ public class TownManager
  		span[3] = NPCData.builder;
  		remainingNPCS = list;
  		homes = new Dictionary<Vector3i, TownHome>();
 -		base._002Ector();
  	}
  }
-diff -urB Allumeria.orig/Allumeria/Game.cs Allumeria/Allumeria/Game.cs
---- Allumeria.orig/Allumeria/Game.cs	2026-09-06 01:41:43.072031328 +0200
-+++ Allumeria/Allumeria/Game.cs	2026-09-06 02:17:04.151902577 +0200
-@@ -359,7 +359,7 @@
+diff --git a/Allumeria/Game.cs b/Allumeria/Game.cs
+index 7365e84..ff0f76b 100644
+--- a/Allumeria/Game.cs
++++ b/Allumeria/Game.cs
+@@ -359,7 +359,7 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
  				Logger.Init("In big picture mode - Switching to fullscreen");
  				base.WindowState = WindowState.Fullscreen;
  			}
@@ -50,10 +66,11 @@ diff -urB Allumeria.orig/Allumeria/Game.cs Allumeria/Allumeria/Game.cs
  			{
  				base.ClientSize = new Vector2i(1280, 720);
  			}
-diff -urB Allumeria.orig/Allumeria/Input/InputChannel.cs Allumeria/Allumeria/Input/InputChannel.cs
---- Allumeria.orig/Allumeria/Input/InputChannel.cs	2026-09-06 01:41:43.060618988 +0200
-+++ Allumeria/Allumeria/Input/InputChannel.cs	2026-09-06 02:25:21.597917758 +0200
-@@ -162,8 +162,7 @@
+diff --git a/Allumeria/Input/InputChannel.cs b/Allumeria/Input/InputChannel.cs
+index 3cd3e5d..67f9fd8 100644
+--- a/Allumeria/Input/InputChannel.cs
++++ b/Allumeria/Input/InputChannel.cs
+@@ -162,8 +162,7 @@ public class InputChannel
  					if (steamInputGlyphUpdateClock == 0)
  					{
  						steamInputGlyphUpdateClock = 600;
@@ -63,10 +80,11 @@ diff -urB Allumeria.orig/Allumeria/Input/InputChannel.cs Allumeria/Allumeria/Inp
  						if (pngActionGlyphForOrigin != steamInputGlyphDir && pngActionGlyphForOrigin != null && pngActionGlyphForOrigin != "" && pngActionGlyphForOrigin.Length > 0 && File.Exists(pngActionGlyphForOrigin))
  						{
  							steamInputGlyphDir = pngActionGlyphForOrigin;
-diff -urB Allumeria.orig/Allumeria/Input/InputManager.cs Allumeria/Allumeria/Input/InputManager.cs
---- Allumeria.orig/Allumeria/Input/InputManager.cs	2026-09-06 01:41:43.060618988 +0200
-+++ Allumeria/Allumeria/Input/InputManager.cs	2026-09-06 02:21:38.017057482 +0200
-@@ -199,7 +199,7 @@
+diff --git a/Allumeria/Input/InputManager.cs b/Allumeria/Input/InputManager.cs
+index 47add47..c4738b9 100644
+--- a/Allumeria/Input/InputManager.cs
++++ b/Allumeria/Input/InputManager.cs
+@@ -199,7 +199,7 @@ public class InputManager
  		{
  			steamInputActive = true;
  			Logger.Warn("Trying to set up steam input");
@@ -75,7 +93,7 @@ diff -urB Allumeria.orig/Allumeria/Input/InputManager.cs Allumeria/Allumeria/Inp
  			SteamInput.RunFrame();
  			SteamUtils.OnGamepadTextInputDismissed += OnInputDismissed;
  		}
-@@ -226,7 +226,7 @@
+@@ -226,7 +226,7 @@ public class InputManager
  		if (steamInputActive)
  		{
  			SteamInput.RunFrame();
@@ -84,3 +102,6 @@ diff -urB Allumeria.orig/Allumeria/Input/InputManager.cs Allumeria/Allumeria/Inp
  			using (IEnumerator<Controller> enumerator = SteamInput.Controllers.GetEnumerator())
  			{
  				if (enumerator.MoveNext())
+-- 
+2.55.0
+

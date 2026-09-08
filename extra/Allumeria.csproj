@@ -25,9 +25,6 @@
         <PackageReference Include="OpenTK.Windowing.GraphicsLibraryFramework" Version="4.9.4" />
         <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0-preview.3.25171.6" />
         <PackageReference Include="NVorbis" Version="0.10.5"/>
-    <!-- <Reference Include="SoLoudLib"> -->
-    <!--   <HintPath>../../.steam/steam/steamapps/common/Allumeria Demo/SoLoudLib.dll</HintPath> -->
-    <!-- </Reference> -->
         <PackageReference Include="OpenTK.Audio.OpenAL" Version="4.9.4" />
     </ItemGroup>
 </Project>
