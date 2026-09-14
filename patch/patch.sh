@@ -18,5 +18,5 @@ then
     exit 1
 fi
 
-git -C "$src_dir" am "$base_dir"/*.patch
+git -C "$src_dir" am --reject "$base_dir"/*.patch
 

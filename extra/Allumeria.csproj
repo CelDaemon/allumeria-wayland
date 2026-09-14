@@ -12,7 +12,7 @@
         <ProjectReference Include="..\FastNoiseLite\FastNoiseLite.csproj" />
         <ProjectReference Include="..\Soloud\Soloud.csproj" />
         <ProjectReference Include="..\Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Posix.csproj" />
-        <None Include="..\libsteam_api.so;..\steam_appid.txt;.\res\**\*">
+        <None Include=".\libsteam_api.so;.\steam_appid.txt;.\res\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
 

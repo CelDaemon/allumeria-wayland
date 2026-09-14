@@ -13,8 +13,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\libsteam_api.so;..\steam_appid.txt">
-            <!-- <Link>libsteam_api.so</Link> -->
+        <None Include="..\extra\libsteam_api.so;..\extra\steam_appid.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>

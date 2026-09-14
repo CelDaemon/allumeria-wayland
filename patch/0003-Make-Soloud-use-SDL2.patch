@@ -1,7 +1,7 @@
-From 84e55c0f756a56d8b729ce7e7785a3524310f915 Mon Sep 17 00:00:00 2001
+From 40cbf694380263c93259bf22c7cca5c9137464ce Mon Sep 17 00:00:00 2001
 From: CelDaemon <celdaemon@voidgroup.net>
 Date: Tue, 8 Sep 2026 12:50:19 +0200
-Subject: [PATCH 3/4] Make Soloud use SDL2
+Subject: [PATCH 3/3] Make Soloud use SDL2
 
 ---
  Allumeria/Audio/AudioPlayer.cs | 2 +-

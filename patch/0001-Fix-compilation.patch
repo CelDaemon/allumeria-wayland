@@ -1,15 +1,15 @@
-From 44368a459da3ae1953129e663d8d1adf103d0d76 Mon Sep 17 00:00:00 2001
+From e74a6fa35dc68247317eaacfee55cb1b4e485614 Mon Sep 17 00:00:00 2001
 From: CelDaemon <celdaemon@voidgroup.net>
-Date: Mon, 7 Sep 2026 20:55:41 +0200
-Subject: [PATCH 1/4] Fix compilation
+Date: Mon, 14 Sep 2026 17:55:23 +0200
+Subject: [PATCH 1/3] Fix compilation
 
 ---
  Allumeria/ChunkManagement/Chunk.cs | 11 +++++------
  Allumeria/Comfort/TownManager.cs   |  3 +--
  Allumeria/Game.cs                  |  2 +-
  Allumeria/Input/InputChannel.cs    |  3 +--
- Allumeria/Input/InputManager.cs    |  4 ++--
- 5 files changed, 10 insertions(+), 13 deletions(-)
+ Allumeria/Input/InputManager.cs    |  2 --
+ 5 files changed, 8 insertions(+), 13 deletions(-)
 
 diff --git a/Allumeria/ChunkManagement/Chunk.cs b/Allumeria/ChunkManagement/Chunk.cs
 index 2fd49cf..dcb0f07 100644
@@ -54,51 +54,49 @@ index 9246683..f8d9e18 100644
  	}
  }
 diff --git a/Allumeria/Game.cs b/Allumeria/Game.cs
-index 7365e84..ff0f76b 100644
+index 8f0426d..b8c1e89 100644
 --- a/Allumeria/Game.cs
 +++ b/Allumeria/Game.cs
-@@ -359,7 +359,7 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
+@@ -363,7 +363,7 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
  				Logger.Init("In big picture mode - Switching to fullscreen");
  				base.WindowState = WindowState.Fullscreen;
  			}
 -			if (SteamUtils.IsRunningOnSteamDeck)
 +			if (SteamUtils.IsRunningOnSteamHardware == SteamHardwareType.SteamDeck)
  			{
- 				base.ClientSize = new Vector2i(1280, 720);
- 			}
+ 				base.ClientSize = new Vector2i(1280, 800);
+ 				InputManager.usingControllerInput = true;
 diff --git a/Allumeria/Input/InputChannel.cs b/Allumeria/Input/InputChannel.cs
-index 3cd3e5d..67f9fd8 100644
+index 0b18a65..f1f1c4f 100644
 --- a/Allumeria/Input/InputChannel.cs
 +++ b/Allumeria/Input/InputChannel.cs
 @@ -162,8 +162,7 @@ public class InputChannel
- 					if (steamInputGlyphUpdateClock == 0)
+ 					if ((steamInputGlyphUpdateClock == 0) | glyphClockOverride)
  					{
  						steamInputGlyphUpdateClock = 600;
 -						InputActionOrigin[] digitalActionOrigins = SteamInput.GetDigitalActionOrigins(current, name);
 -						string pngActionGlyphForOrigin = SteamInput.GetPngActionGlyphForOrigin(digitalActionOrigins[0], GlyphSize.Medium);
-+                        string pngActionGlyphForOrigin = SteamInput.GetPngActionGlyph(current, name, GlyphSize.Medium);
++						string pngActionGlyphForOrigin = SteamInput.GetPngActionGlyph(current, name, GlyphSize.Medium);
  						if (pngActionGlyphForOrigin != steamInputGlyphDir && pngActionGlyphForOrigin != null && pngActionGlyphForOrigin != "" && pngActionGlyphForOrigin.Length > 0 && File.Exists(pngActionGlyphForOrigin))
  						{
  							steamInputGlyphDir = pngActionGlyphForOrigin;
 diff --git a/Allumeria/Input/InputManager.cs b/Allumeria/Input/InputManager.cs
-index 47add47..c4738b9 100644
+index 9bbf65c..36a3a06 100644
 --- a/Allumeria/Input/InputManager.cs
 +++ b/Allumeria/Input/InputManager.cs
-@@ -199,7 +199,7 @@ public class InputManager
+@@ -199,7 +199,6 @@ public class InputManager
  		{
  			steamInputActive = true;
  			Logger.Warn("Trying to set up steam input");
 -			SteamInput.Init();
-+			// SteamInput.Init();
  			SteamInput.RunFrame();
  			SteamUtils.OnGamepadTextInputDismissed += OnInputDismissed;
  		}
-@@ -226,7 +226,7 @@ public class InputManager
+@@ -226,7 +225,6 @@ public class InputManager
  		if (steamInputActive)
  		{
  			SteamInput.RunFrame();
 -			int controllerCount = SteamInput.GetControllerCount();
-+
  			using (IEnumerator<Controller> enumerator = SteamInput.Controllers.GetEnumerator())
  			{
  				if (enumerator.MoveNext())

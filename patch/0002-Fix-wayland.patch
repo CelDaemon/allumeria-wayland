@@ -1,17 +1,17 @@
-From ad1c89c3609d6056ed8c8facbbdf30b381f72e4e Mon Sep 17 00:00:00 2001
+From c3af085f7ebf2c4e6ea939100c88812f93b1a99a Mon Sep 17 00:00:00 2001
 From: CelDaemon <celdaemon@voidgroup.net>
 Date: Mon, 7 Sep 2026 20:56:43 +0200
-Subject: [PATCH 2/4] Fix wayland
+Subject: [PATCH 2/3] Fix wayland
 
 ---
  Allumeria/Game.cs | 13 ++++++++-----
  1 file changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/Allumeria/Game.cs b/Allumeria/Game.cs
-index ff0f76b..4963ac6 100644
+index b8c1e89..8860ed0 100644
 --- a/Allumeria/Game.cs
 +++ b/Allumeria/Game.cs
-@@ -331,9 +331,9 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
+@@ -335,9 +335,9 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
  		Logger.Init("Starting extra loading thread");
  		SetupGame(new object());
  		Logger.Init("Creating main frame buffer");
@@ -23,7 +23,7 @@ index ff0f76b..4963ac6 100644
  		_timer.Start();
  		Logger.Init("Particle system init");
  		ParticleSystem.Init();
-@@ -379,6 +379,9 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
+@@ -385,6 +385,9 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
  
  	public void SetIcon()
  	{
@@ -33,7 +33,7 @@ index ff0f76b..4963ac6 100644
  		using FileStream stream = File.OpenRead("res/textures/icon.png");
  		StbImage.stbi_set_flip_vertically_on_load(0);
  		ImageResult imageResult = ImageResult.FromStream(stream, StbImageSharp.ColorComponents.RedGreenBlueAlpha);
-@@ -425,7 +428,7 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
+@@ -431,7 +434,7 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
  		{
  			camera.Update();
  		}
@@ -42,7 +42,7 @@ index ff0f76b..4963ac6 100644
  		TextureBatcher.batcher.ResetZDepth();
  		secondsElapsed += e.Time;
  		if (_timer.ElapsedMilliseconds > 1000)
-@@ -624,8 +627,8 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
+@@ -615,8 +618,8 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
  	public static void ResetFrameBuffers()
  	{
  		gameBuffer.Unload();
