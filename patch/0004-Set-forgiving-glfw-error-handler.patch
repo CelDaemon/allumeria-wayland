@@ -1,0 +1,42 @@
+From 2fa6fef55e3d1c29b02ab17415048825a35dcee9 Mon Sep 17 00:00:00 2001
+From: CelDaemon <celdaemon@voidgroup.net>
+Date: Tue, 15 Sep 2026 01:49:56 +0200
+Subject: [PATCH 4/4] Set forgiving glfw error handler
+
+---
+ Allumeria/Game.cs | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/Allumeria/Game.cs b/Allumeria/Game.cs
+index 8860ed0..6e64853 100644
+--- a/Allumeria/Game.cs
++++ b/Allumeria/Game.cs
+@@ -41,6 +41,8 @@ using StbImageSharp;
+ using StbImageWriteSharp;
+ using Steamworks;
+ 
++using ErrorCode = OpenTK.Windowing.GraphicsLibraryFramework.ErrorCode;
++
+ namespace Allumeria;
+ 
+ public class Game(int width, int height, string title) : GameWindow(GameWindowSettings.Default, new NativeWindowSettings
+@@ -177,10 +179,16 @@ public class Game(int width, int height, string title) : GameWindow(GameWindowSe
+ 
+ 	private unsafe void SetGLFWStuff()
+ 	{
++		GLFWProvider.SetErrorCallback(ErrorHandler);
+ 		GLFW.SetInputMode(base.WindowPtr, RawMouseMotionAttribute.RawMouseMotion, value: true);
+ 		base.RawMouseInput = true;
+ 	}
+ 
++	private void ErrorHandler(ErrorCode errorCode, string description)
++	{
++		Logger.Error($"A GLFW Error occured: {errorCode}\n{description}");
++	}
++
+ 	public void SetupGame(object? state)
+ 	{
+ 		NetworkManager.RegisterPackets();
+-- 
+2.55.0
+

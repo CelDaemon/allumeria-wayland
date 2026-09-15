@@ -1,7 +1,7 @@
-From c3af085f7ebf2c4e6ea939100c88812f93b1a99a Mon Sep 17 00:00:00 2001
+From 8e02b9ab4d44c22c086113b3fac629a68d738161 Mon Sep 17 00:00:00 2001
 From: CelDaemon <celdaemon@voidgroup.net>
 Date: Mon, 7 Sep 2026 20:56:43 +0200
-Subject: [PATCH 2/3] Fix wayland
+Subject: [PATCH 2/4] Fix wayland
 
 ---
  Allumeria/Game.cs | 13 ++++++++-----
